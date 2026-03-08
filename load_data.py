@@ -1,6 +1,3 @@
-import mysql.connector
-import pandas as pd
-
 def load_data():
 
     connection = mysql.connector.connect(
@@ -10,8 +7,15 @@ def load_data():
         database="hospital_ai"
     )
 
-    query = "SELECT * FROM hospital_dataset"
+    query = """
+    SELECT *
+    FROM hospital_dataset
+    ORDER BY date DESC
+    LIMIT 50
+    """
 
-    data = pd.read_sql(query, connection)
+    df = pd.read_sql(query, connection)
 
-    return data
+    connection.close()
+
+    return df
