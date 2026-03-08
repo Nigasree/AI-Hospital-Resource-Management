@@ -26,9 +26,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 )
 
 
-# -------------------------------
-# Step 4: Train Random Forest
-# -------------------------------
+
 
 rf_model = RandomForestRegressor()
 
@@ -41,10 +39,6 @@ rf_error = mean_absolute_error(y_test, rf_predictions)
 print("Random Forest MAE:", rf_error)
 
 
-# -------------------------------
-# Step 5: Train XGBoost
-# -------------------------------
-
 xgb_model = XGBRegressor()
 
 xgb_model.fit(X_train, y_train)
@@ -54,11 +48,6 @@ xgb_predictions = xgb_model.predict(X_test)
 xgb_error = mean_absolute_error(y_test, xgb_predictions)
 
 print("XGBoost MAE:", xgb_error)
-
-
-# -------------------------------
-# Step 6: Choose Best Model
-# -------------------------------
 
 if xgb_error < rf_error:
     best_model = xgb_model
@@ -71,10 +60,8 @@ else:
 print("Best Model:", model_name)
 
 
-# -------------------------------
-# Step 7: Save Model
-# -------------------------------
 
 joblib.dump(best_model, "hospital_prediction_model.pkl")
+
 
 print("Model saved successfully")
